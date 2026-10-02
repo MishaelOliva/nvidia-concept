@@ -7,7 +7,9 @@ import { useActiveSection, useScrollLock, useSmoothScroll } from '@/lib/hooks'
 import { MagneticButton } from './ui/Interactive'
 import { NvidiaLogo } from './ui/Primitives'
 
-const SECTION_IDS = ['hero', 'pillars', 'rtx', 'dlss', 'ai-factory', 'ceo', 'timeline', 'news']
+/* Document order — must match the order sections are composed in App.tsx,
+   otherwise the side rail labels jump around as you scroll. */
+const SECTION_IDS = ['hero', 'pillars', 'ceo', 'rtx', 'dlss', 'ai-factory', 'timeline', 'news']
 
 const ANCHORS = [
   { label: 'Body of Work', href: '#pillars' },

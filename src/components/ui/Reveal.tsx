@@ -1,5 +1,5 @@
 import { motion, useInView, useReducedMotion } from 'motion/react'
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, Fragment, type ReactNode } from 'react'
 import { EXPO, EXPO_SLOW, fadeUp, stagger } from '@/lib/motion'
 
 /* -------------------------------------------------------------------------- */
@@ -102,20 +102,34 @@ export function SplitText({
           read the heading as a stream of disconnected fragments. Expose the
           whole string once instead and hide the decorative copy. */}
       <span className="sr-only">{text}</span>
-      <span aria-hidden="true">
+
+      {/*
+        `display: contents` so the word wrappers and the inter-word spaces are
+        laid out directly by the parent.
+
+        The space MUST live outside the mask. Each word is wrapped in an
+        overflow-hidden element, and whitespace inside such a box is trimmed —
+        putting the trailing space inside it collapsed every gap and rendered
+        "Seven things we're rebuilding" as "Seventhingswe'rerebuilding".
+        pb + negative mb keeps descenders (g, y, p) from being clipped by
+        overflow-hidden without inflating the line box.
+      */}
+      <span aria-hidden="true" className="contents">
         {words.map((w, i) => (
-          <span key={`${w}-${i}`} className="inline-flex overflow-hidden pb-[0.12em] align-bottom">
-            <motion.span
-              className={wordClassName}
-              variants={{
-                hidden: { y: '110%', opacity: 0 },
-                show: { y: '0%', opacity: 1, transition: EXPO_SLOW },
-              }}
-            >
-              {w}
-              {i < words.length - 1 ? ' ' : ''}
-            </motion.span>
-          </span>
+          <Fragment key={`${w}-${i}`}>
+            <span className="inline-block overflow-hidden pb-[0.14em] align-bottom -mb-[0.14em]">
+              <motion.span
+                className={wordClassName}
+                variants={{
+                  hidden: { y: '110%', opacity: 0 },
+                  show: { y: '0%', opacity: 1, transition: EXPO_SLOW },
+                }}
+              >
+                {w}
+              </motion.span>
+            </span>
+            {i < words.length - 1 ? ' ' : null}
+          </Fragment>
         ))}
       </span>
     </motion.span>

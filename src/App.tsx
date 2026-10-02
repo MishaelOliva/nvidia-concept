@@ -48,10 +48,10 @@ export default function App() {
           <Hero />
           <Ticker />
           <Pillars />
+          <CEO />
           <Rtx />
           <Dlss />
           <AiFactory />
-          <CEO />
           <Timeline />
           <Newsroom />
           <CTA />
