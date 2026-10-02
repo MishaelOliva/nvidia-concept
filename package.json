@@ -1,0 +1,32 @@
+{
+  "name": "nvidia-futuristic",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "NVIDIA-inspired futuristic website — React + TypeScript + Vite + Tailwind v4 + Motion",
+  "scripts": {
+    "dev": "vite --open /dev.html",
+    "build": "tsc -b && vite build && vite build --config vite.single.config.ts && node scripts/make-single.mjs",
+    "build:prod": "tsc -b && vite build",
+    "build:single": "tsc -b && vite build --config vite.single.config.ts && node scripts/make-single.mjs",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "check": "npm run typecheck && npm run build",
+    "lint": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "lucide-react": "^0.469.0",
+    "motion": "^12.0.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  }
+}

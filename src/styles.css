@@ -1,0 +1,355 @@
+@import 'tailwindcss';
+
+/* ============================================================================
+   NVIDIA — design tokens
+   ========================================================================= */
+@theme {
+  --color-nv-50: #f2ffe0;
+  --color-nv-100: #e2ffb8;
+  --color-nv-200: #c8ff85;
+  --color-nv-300: #a8f542;
+  --color-nv-400: #76b900; /* NVIDIA signature green */
+  --color-nv-500: #63a300;
+  --color-nv-600: #4c7f00;
+  --color-nv-700: #365c00;
+
+  --color-ink-950: #000000;
+  --color-ink-900: #05070a;
+  --color-ink-850: #080b0f;
+  --color-ink-800: #0b0f14;
+  --color-ink-700: #12171d;
+  --color-ink-600: #1b222b;
+  --color-ink-500: #2a333f;
+
+  --color-mist-100: #f4f7f5;
+  --color-mist-200: #d7ded9;
+  --color-mist-300: #9aa5a0;
+  /* mist-400 carries 9-11px body copy, so it must clear 4.5:1 on #000. */
+  --color-mist-400: #7f8a86;
+
+  --font-display: 'Archivo', 'Inter', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --shadow-glow: 0 0 60px -10px rgba(118, 185, 0, 0.55);
+  --shadow-glow-lg: 0 0 140px -20px rgba(118, 185, 0, 0.7);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============================================================================
+   base
+   ========================================================================= */
+@layer base {
+  * {
+    border-color: color-mix(in oklab, var(--color-nv-400) 12%, transparent);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ink-950);
+    color: var(--color-mist-100);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-nv-400);
+    color: #000;
+  }
+
+  /* Tabular numerals everywhere numbers count up. */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Slim NVIDIA-tinted scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #05070a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1b222b;
+    border-radius: 99px;
+    border: 2px solid #05070a;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-nv-600);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-nv-400);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ============================================================================
+   utilities / effects
+   ========================================================================= */
+@utility container-x {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  max-width: 88rem;
+
+  @media (min-width: 768px) {
+    padding-inline: 2.5rem;
+  }
+  @media (min-width: 1280px) {
+    padding-inline: 4rem;
+  }
+}
+
+@utility text-gradient {
+  background: linear-gradient(
+    100deg,
+    var(--color-mist-100) 0%,
+    var(--color-mist-100) 30%,
+    var(--color-nv-200) 55%,
+    var(--color-nv-400) 78%,
+    var(--color-nv-600) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility glass {
+  background: color-mix(in oklab, #0b0f14 72%, transparent);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid color-mix(in oklab, var(--color-nv-400) 16%, transparent);
+}
+
+@utility glass-strong {
+  background: color-mix(in oklab, #05070a 88%, transparent);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid color-mix(in oklab, var(--color-nv-400) 22%, transparent);
+}
+
+/* Animated conic border used on hero cards */
+@utility ring-aurora {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+      from var(--angle, 0deg),
+      transparent 0deg,
+      var(--color-nv-400) 40deg,
+      var(--color-nv-200) 60deg,
+      transparent 120deg,
+      transparent 360deg
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: aurora-spin 6s linear infinite;
+    pointer-events: none;
+  }
+}
+
+/* Dotted technical grid */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(118, 185, 0, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(118, 185, 0, 0.07) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+@utility bg-dots {
+  background-image: radial-gradient(rgba(118, 185, 0, 0.16) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Fine film grain over the whole page */
+@utility bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+}
+
+/* Horizontal scanlines, for holographic panels */
+@utility bg-scanlines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(118, 185, 0, 0.07) 0px,
+    rgba(118, 185, 0, 0.07) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+
+/* Edge-fade mask: dissolves an image into the page background on all sides.
+   Used for the CEO portrait — its own studio backdrop is near-black
+   (rgb ~ #0e0f18) so it melts into the section without needing a matte. */
+@utility mask-dissolve {
+  -webkit-mask-image: radial-gradient(118% 96% at 50% 44%, #000 44%, rgba(0, 0, 0, 0.55) 68%, transparent 84%);
+  mask-image: radial-gradient(118% 96% at 50% 44%, #000 44%, rgba(0, 0, 0, 0.55) 68%, transparent 84%);
+}
+
+/* ============================================================================
+   keyframes
+   ========================================================================= */
+@keyframes aurora-spin {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.82);
+  }
+}
+
+@keyframes sweep-y {
+  0% {
+    transform: translateY(-110%);
+    opacity: 0;
+  }
+  12%,
+  78% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110%);
+    opacity: 0;
+  }
+}
+
+@keyframes ticker-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shimmer-x {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+.animate-marquee {
+  animation: marquee-x var(--dur, 40s) linear infinite;
+}
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+.animate-sweep-y {
+  animation: sweep-y 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.animate-ticker {
+  animation: ticker-blink 1.05s step-end infinite;
+}
+.animate-spin-slow {
+  animation: spin-slow 18s linear infinite;
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    100deg,
+    var(--color-mist-300) 0%,
+    var(--color-mist-100) 42%,
+    var(--color-nv-200) 50%,
+    var(--color-mist-100) 58%,
+    var(--color-mist-300) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer-x 6s linear infinite;
+}
+
+/* Pause every ambient loop when the tab is hidden so background tabs cost
+   nothing. WebGL pausing is handled in JS by GpuField itself. */
+.tab-hidden .animate-marquee,
+.tab-hidden .animate-spin-slow,
+.tab-hidden .animate-sweep-y,
+.tab-hidden .animate-ping,
+.tab-hidden .animate-ticker,
+.tab-hidden .shimmer-text,
+.tab-hidden [data-ambient] {
+  animation-play-state: paused;
+}
