@@ -221,7 +221,9 @@ export function CEO() {
 
         {/* ============================== column 2: biography & pillars */}
         <div className="container-x lg:flex lg:items-center lg:max-w-none lg:pt-0 lg:pb-0 lg:pl-12 lg:pr-16">
-          <div className="-mt-10 w-full pb-20 lg:mt-0 lg:pb-0">
+          {/* Was -mt-10, which pulled the biography 40px up on mobile and
+              overlapped the "Mishael Oliva" heading with the portrait. */}
+          <div className="mt-8 w-full pb-20 lg:mt-0 lg:pb-0">
             <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-14">
               {/* ------------------------------------------------- biography */}
               <div>
@@ -273,7 +275,7 @@ export function CEO() {
                   </div>
 
                   <div className="mt-4 flex items-center justify-between gap-4">
-                    <div className="flex gap-1.5">
+                    <div className="flex gap-0.5">
                       {CEO_DATA.highlights.map((h, i) => (
                         <button
                           key={h.source}
@@ -284,10 +286,17 @@ export function CEO() {
                           }}
                           aria-label={`Show: ${h.source}`}
                           aria-current={i === quote}
-                          className={`h-1 rounded-full transition-all duration-300 ${
-                            i === quote ? 'w-7 bg-nv-400' : 'w-1.5 bg-nv-400/30 hover:bg-nv-400/60'
-                          }`}
-                        />
+                          /* padding enlarges the hit area well past the 4px
+                             visual bar; the negative margin keeps the row's
+                             vertical rhythm unchanged */
+                          className="-my-2.5 cursor-pointer px-2 py-2.5"
+                        >
+                          <span
+                            className={`block h-1 rounded-full transition-all duration-300 ${
+                              i === quote ? 'w-7 bg-nv-400' : 'w-2 bg-nv-400/35 group-hover:bg-nv-400/70'
+                            }`}
+                          />
+                        </button>
                       ))}
                     </div>
 

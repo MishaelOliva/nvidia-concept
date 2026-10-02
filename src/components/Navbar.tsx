@@ -406,7 +406,7 @@ export function Navbar() {
             key={id}
             type="button"
             onClick={() => go(`#${id}`)}
-            className="group flex items-center gap-2.5"
+            className="group -my-1 flex items-center gap-2.5 py-1.5"
             aria-label={`Go to ${id}`}
           >
             <span

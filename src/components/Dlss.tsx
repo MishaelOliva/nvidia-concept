@@ -146,14 +146,16 @@ export function Dlss() {
                   />
                 </div>
 
-                <div className="flex flex-wrap justify-between gap-2 font-mono text-[10px] tracking-[0.14em] text-mist-400 uppercase">
+                <div className="-mx-1 mt-1 flex flex-wrap justify-between gap-x-1 font-mono text-[10px] tracking-[0.14em] uppercase">
                   {DLSS_PRESETS.map((p, i) => (
                     <button
                       key={p.id}
                       type="button"
                       onClick={() => setT(i)}
-                      className={`transition-colors ${
-                        i === idx ? 'text-nv-300' : 'hover:text-mist-200'
+                      aria-pressed={i === idx}
+                      /* min 2.25rem tall for comfortable touch */
+                      className={`-mx-1 inline-flex min-h-9 items-center rounded-lg px-2 py-1.5 transition-colors ${
+                        i === idx ? 'text-nv-300' : 'text-mist-400 hover:text-mist-200'
                       }`}
                     >
                       {p.name.replace('DLSS ', '').replace('Native / No DLSS', 'Native')}

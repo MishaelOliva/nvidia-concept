@@ -80,7 +80,7 @@ export function CTA() {
           <button
             type="button"
             onClick={() => scrollTo('#hero')}
-            className="font-mono text-[11px] tracking-[0.2em] text-mist-400 uppercase transition-colors hover:text-nv-300"
+            className="-mx-2 -my-1 inline-block px-2 py-1 font-mono text-[11px] tracking-[0.2em] text-mist-400 uppercase transition-colors hover:text-nv-300"
           >
             ↑ Back to top
           </button>
