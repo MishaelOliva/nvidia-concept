@@ -101,7 +101,7 @@ export const NAV: { label: string; groups: NavGroup[] }[] = [
         title: 'About',
         links: [
           { label: 'Our Body of Work', href: '#pillars' },
-          { label: 'Leadership', href: '#ceo' },
+          { label: 'Concept Architect', href: '#architect' },
           { label: 'Timeline', href: '#timeline' },
           { label: 'Newsroom', href: '#news' },
           { label: 'Careers', href: '#cta' },
@@ -402,69 +402,67 @@ export const NEWS = [
   },
 ]
 
-/* --- CEO ----------------------------------------------------------------- */
+/* --- Concept Architect & Engineer ---------------------------------------- */
 export const CEO = {
   name: 'Mishael Oliva',
-  role: 'Founder & Chief Executive Officer',
-  since: 1993,
-  location: 'Santa Clara, California',
-  tagline: 'The next industrial revolution will be driven by AI, and NVIDIA is at the center of it.',
-  lede: 'Mishael Oliva founded NVIDIA in 1993 with a simple vision: to accelerate computing. Today, he leads a global team building the technology that powers AI, graphics, and the next generation of computing.',
+  role: 'Concept Architect & Lead Engineer',
+  since: '2026',
+  location: 'Taguig City, Philippines',
+  tagline: 'Exploring the intersection of custom WebGL shaders, neural rendering concepts, and zero-overhead web performance.',
+  lede: 'Mishael Oliva is a Computer Engineering graduate (Cum Laude, TUP Manila) specializing in systems architecture, AI pipelines, and modern frontend interfaces. This project was engineered from scratch as an interactive concept showcase exploring raw WebGL shaders, neural graphics simulations, and zero-dependency web performance.',
   body: [
-    'He recognised before anyone else that the CPU was the wrong engine for a world of parallel work. That conviction became CUDA, and CUDA became the reason every deep-learning breakthrough since has been written in NVIDIA’s language.',
-    'Under his leadership NVIDIA moved from graphics cards to accelerated computing — from a single GPU to the rack-scale AI factories that now train frontier models. He treats the company as a platform rather than a product line, publishing the road map years ahead of the silicon so the whole industry can build alongside it.',
+    'Instead of relying on heavy third-party 3D runtimes like Three.js, this build implements a custom GLSL fragment shader directly on an HTML5 canvas quad, keeping runtime overhead minimal while achieving a locked 60 FPS rendering pipeline.',
+    'The architecture combines dual-target bundling (code-split ESM plus an offline standalone HTML), accessible roving-tab navigation, and responsive motion primitives to prove how rich, hardware-accelerated interactive interfaces can remain lightweight and maintainable.',
   ],
-  /* Right-hand pillar list, mirroring the reference layout. */
+  /* Right-hand architecture pillars */
   pillars: [
     {
       icon: 'spark',
-      title: 'Visionary Leader',
-      desc: 'Seeing the industrial revolution before it arrives',
+      title: 'Custom WebGL Shader',
+      desc: 'Zero Three.js bloat: raw GLSL fragment program on an HTML5 canvas',
     },
     {
       icon: 'chip',
-      title: 'Innovator',
-      desc: 'Pioneering GPU computing since 1993',
+      title: 'Neural Rendering Lab',
+      desc: 'Interactive DLSS & Frame Gen simulator with mathematical latency models',
     },
     {
       icon: 'network',
-      title: 'Builder',
-      desc: 'Growing a global ecosystem of 3.8M+ developers',
+      title: 'Dual-Target Bundling',
+      desc: 'Custom Vite pipeline generating both CDN ESM and offline standalone bundles',
     },
     {
       icon: 'users',
-      title: 'Inspiration',
-      desc: 'Empowering people and communities worldwide',
+      title: 'Engineering Rigor',
+      desc: 'Strict TypeScript, accessible roving tabs, and automated GitHub CI/CD',
     },
   ],
-  /* Product/company statements, not attributed personal quotations — these
-     are not real citations and inventing first-person lines for a named,
-     identifiable person would be putting words in their mouth. */
   highlights: [
     {
-      text: 'Accelerated computing and AI have fully arrived. Generative AI is a new computing platform — like the PC, the internet, and mobile cloud before it.',
-      source: 'The iPhone moment for AI',
+      text: 'By writing raw GLSL shaders on a full-screen canvas quad, we eliminate 600KB+ of Three.js runtime overhead while achieving steady 60 FPS rendering.',
+      source: 'WebGL Engineering Rationale',
     },
     {
-      text: 'We engineer the most advanced chips, systems and software for the AI factories of the future — and the platforms that turn parallel computing into an industrial revolution.',
-      source: 'NVIDIA is the engine of AI',
+      text: 'The DLSS lab reproduces temporal upscaling and optical multi-frame generation math with real-time frametime and latency modeling.',
+      source: 'Neural Rendering Simulation',
     },
     {
-      text: 'RTX fuses AI with ray tracing. DLSS reconstructs frames from a neural model and synthesises entirely new ones from motion vectors.',
-      source: 'Reinventing modern graphics',
+      text: 'A custom Vite pipeline generates standard chunked ESM for GitHub Pages deployment and an inlined standalone bundle for offline portability.',
+      source: 'Dual-Target Architecture',
     },
   ],
   focus: [
-    { label: 'AI factories', value: 92 },
-    { label: 'Full-stack systems', value: 88 },
-    { label: 'Ecosystem & standards', value: 94 },
-    { label: 'Developer reach', value: 90 },
+    { label: 'Raw GLSL & WebGL', value: 95 },
+    { label: 'React 19 & TypeScript', value: 92 },
+    { label: 'Motion & UI Kinetics', value: 90 },
+    { label: 'Build & Bundling Pipelines', value: 94 },
   ],
-  facts: [    { k: 'Founded NVIDIA', v: '1993' },
-    { k: 'Role', v: 'Founder & CEO' },
-    { k: 'Employees', v: '36,000+' },
-    { k: 'Developers', v: '3.8M+' },
-    { k: 'Countries served', v: '140+' },
-    { k: 'Recognition', v: 'IEEE Founders Medal' },
+  facts: [
+    { k: 'Engineer', v: 'Mishael Oliva' },
+    { k: 'Education', v: 'TUP Manila (Cum Laude)' },
+    { k: 'Degree', v: 'B.Eng. Tech (CompEng)' },
+    { k: 'Stack', v: 'React 19 · TS · WebGL' },
+    { k: '3D Runtime', v: '0 KB (Raw GLSL)' },
+    { k: 'Deployment', v: 'GitHub Pages CI/CD' },
   ],
 }

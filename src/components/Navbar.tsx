@@ -9,13 +9,13 @@ import { NvidiaLogo } from './ui/Primitives'
 
 /* Document order — must match the order sections are composed in App.tsx,
    otherwise the side rail labels jump around as you scroll. */
-const SECTION_IDS = ['hero', 'pillars', 'ceo', 'rtx', 'dlss', 'ai-factory', 'timeline', 'news']
+const SECTION_IDS = ['hero', 'pillars', 'architect', 'rtx', 'dlss', 'ai-factory', 'timeline', 'news']
 
 const ANCHORS = [
   { label: 'Body of Work', href: '#pillars' },
   { label: 'GeForce RTX', href: '#rtx' },
   { label: 'AI Factory', href: '#ai-factory' },
-  { label: 'Leadership', href: '#ceo' },
+  { label: 'Concept Architect', href: '#architect' },
 ]
 
 export function Navbar() {

@@ -72,9 +72,9 @@ export function CEO() {
   return (
     <section
       ref={sectionRef}
-      id="ceo"
+      id="architect"
       className="relative scroll-mt-24 overflow-hidden border-y border-nv-400/10"
-      aria-labelledby="ceo-heading"
+      aria-labelledby="architect-heading"
     >
       {/* ------------------------------------------------------ atmosphere */}
       <div
@@ -114,7 +114,7 @@ export function CEO() {
           {/* On mobile the portrait stacks first, so the eyebrow leads it.
               Extra top padding clears the fixed header. */}
           <div className="container-x pt-28 lg:hidden">
-            <Eyebrow>Meet our CEO</Eyebrow>
+            <Eyebrow>Concept Architecture</Eyebrow>
           </div>
 
           {/* The source portrait is 900x1124 (aspect 4:5). The frame keeps that
@@ -158,7 +158,7 @@ export function CEO() {
             <motion.div style={reduced ? undefined : { y: portraitY }} className="absolute inset-0">
               <img
                 src={ceoPortrait}
-                alt={`${CEO_DATA.name}, ${CEO_DATA.role} at NVIDIA`}
+                alt={`${CEO_DATA.name}, ${CEO_DATA.role}`}
                 width={900}
                 height={1124}
                 loading="lazy"
@@ -209,11 +209,11 @@ export function CEO() {
               className="pointer-events-none absolute inset-y-0 right-0 hidden w-32 bg-gradient-to-l from-transparent to-[#06090a] lg:block"
             />
 
-            {/* founding chip */}
+            {/* credentials chip */}
             <div className="glass-strong absolute bottom-6 left-6 hidden rounded-xl px-4 py-2.5 sm:block">
-              <p className="font-mono text-[9px] tracking-[0.2em] text-nv-400 uppercase">Founder</p>
+              <p className="font-mono text-[9px] tracking-[0.2em] text-nv-400 uppercase">Degree</p>
               <p className="tnum font-display text-sm font-bold text-mist-100">
-                Since {CEO_DATA.since}
+                Cum Laude · TUP Manila
               </p>
             </div>
           </div>
@@ -228,11 +228,11 @@ export function CEO() {
               {/* ------------------------------------------------- biography */}
               <div>
                 <div className="hidden lg:block">
-                  <Eyebrow>Meet our CEO</Eyebrow>
+                  <Eyebrow>Concept Architecture</Eyebrow>
                 </div>
 
                 <h2
-                  id="ceo-heading"
+                  id="architect-heading"
                   className="mt-5 font-display text-[clamp(2.1rem,4.6vw,3.7rem)] leading-[0.98] font-extrabold tracking-[-0.035em] text-mist-100"
                 >
                   {CEO_DATA.name}
@@ -376,7 +376,7 @@ export function CEO() {
                     {CEO_DATA.name}
                   </p>
                   <span className="ml-auto font-mono text-[10px] tracking-[0.16em] text-mist-400 uppercase">
-                    Founder &amp; CEO
+                    Concept Architect
                   </span>
                 </div>
               </div>
