@@ -49,7 +49,7 @@ float vnoise(vec2 p) {
 float fbm(vec2 p) {
   float v = 0.0;
   float a = 0.5;
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 3; i++) {
     v += a * vnoise(p);
     p = p * 2.03 + 11.7;
     a *= 0.5;
@@ -108,23 +108,22 @@ void main() {
 
   } else {
     // ----------------------------------------------------------------- sky
-    float p1 = fbm(vec2(uv.x * 2.1, uv.y * 2.6 - t * 1.15));
-    float p2 = fbm(vec2(uv.x * 4.3 + 3.7, uv.y * 5.4 - t * 1.7));
-
-    // plasma hugging the horizon line
     float band = exp(-max(uv.y - horizon, 0.0) * 9.0);
-    float glow = (smoothstep(0.55, 1.0, p1) * 0.45 + p2 * 0.22) * band;
-    col += vec3(0.12, 0.36, 0.035) * glow;
+    if (band > 0.005) {
+      float p1 = fbm(vec2(uv.x * 2.1, uv.y * 2.6 - t * 1.15));
+      float glow = smoothstep(0.55, 1.0, p1) * 0.45 * band;
+      col += vec3(0.12, 0.36, 0.035) * glow;
 
-    // thin vertical light streaks — reads as data lanes
-    float lanes = hash21(vec2(floor(uv.x * 46.0), 3.0));
-    float lane = step(0.962, lanes) *
-                 smoothstep(0.0, 0.30, band) *
-                 (0.4 + 0.6 * sin(uTime * 1.7 + lanes * 40.0));
-    col += vec3(0.32, 0.85, 0.16) * lane * 0.16;
+      // thin vertical light streaks — reads as data lanes
+      float lanes = hash21(vec2(floor(uv.x * 46.0), 3.0));
+      float lane = step(0.962, lanes) *
+                   smoothstep(0.0, 0.30, band) *
+                   (0.4 + 0.6 * sin(uTime * 1.7 + lanes * 40.0));
+      col += vec3(0.32, 0.85, 0.16) * lane * 0.16;
 
-    // horizon bloom
-    col += vec3(0.20, 0.56, 0.09) * exp(-abs(uv.y - horizon) * 30.0) * 0.5;
+      // horizon bloom
+      col += vec3(0.20, 0.56, 0.09) * exp(-abs(uv.y - horizon) * 30.0) * 0.5;
+    }
   }
 
   // ------------------------------------------------------------- post stack
@@ -244,7 +243,9 @@ export function GpuField({ className = '' }: { className?: string }) {
     // Driven by a ResizeObserver rather than polled per frame: reading
     // clientWidth inside the RAF forces a layout on every single frame.
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.75)
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+      const maxDpr = isMobile ? 1.0 : 1.5
+      const dpr = Math.min(window.devicePixelRatio || 1, maxDpr)
       const w = Math.floor(canvas.clientWidth * dpr)
       const h = Math.floor(canvas.clientHeight * dpr)
       if (canvas.width !== w || canvas.height !== h) {

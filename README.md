@@ -23,12 +23,27 @@ An interactive graphics laboratory allowing engineers to explore the mathematica
 * **Real-Time Frametime & Latency Metrics:** Dynamically computes reciprocal frametimes ($ms = 1000 / FPS$) and optical flow vector overhead to demonstrate throughput gains vs. input latency stabilization.
 * **Interactive Drag Comparator:** Smooth, hardware-accelerated slider allowing real-time inspection of resolution reconstruction.
 
-### 3. Dual-Target Bundling & Build Pipeline
+### 3. Interactive CUDA & Tensor Workload Lab
+An interactive high-performance computing telemetry deck allowing engineers to benchmark simulated hardware workloads in real time:
+* **Architecture Selector:** Dynamic switching across consumer and datacenter architectures: RTX 5090 (GB202), RTX 5080 (GB203), RTX 5070 Ti (GB205), and rack-scale GB300 NVL72.
+* **Workload Modeling:** Profiles LLM FP4 Inference (70B MoE), 4K Full Path Tracing (multi-bounce caustic dispatch), and Molecular Dynamics (AMBER/GROMACS FP64).
+* **Interactive Modifiers:** Real-time scrubbing of batch concurrency streams (1 to 32) and tensor numerical precision formats (FP4, FP8, FP16) dynamically driving simulated compute throughput, memory bandwidth saturation, and P99 execution latency.
+
+### 4. Zero-Asset Procedural Web Audio Engine
+* **Synthesized Audio:** Implements a native Web Audio API synthesizer (`src/lib/audio.ts`) producing cybernetic UI clicks, frequency ticks, and activation hums with zero external audio assets or network requests.
+* **Audio State Management:** Features a synchronized `[SFX: ON/OFF]` toggle across both desktop and mobile navigation bars.
+
+### 5. 60 FPS GPU Efficiency & Cross-Device Optimization
+* **Responsive DPR Capping:** Clamps canvas Device Pixel Ratio to 1.0 on mobile devices (<768px) and 1.5 on desktop, reducing mobile fragment shader fill-rate by 60%–75%.
+* **Zero-Repaint Compositing:** Eliminates full-viewport scroll invalidations through GPU hardware-accelerated layers (`[transform:translateZ(0)]`) and optimized CSS glass backdrop filters.
+* **Adaptive Mobile Telemetry:** Responsive 2x2 telemetry HUD on mobile screens and touch-ergonomic slider tracks (`touch-pan-x`).
+
+### 6. Dual-Target Bundling & Build Pipeline
 The repository features an intentional dual-target build system configured in `vite.config.ts` and `vite.single.config.ts`:
 * **Target A — Cloud Edge / GitHub Pages:** Emits a code-split, ESM-native production bundle with hashed asset paths and relative base resolution (`base: './'`), automated via GitHub Actions CI/CD (`.github/workflows/deploy.yml`).
 * **Target B — Portable Standalone (`index.html`):** A custom Node.js compilation script (`scripts/make-single.mjs`) bundles all JavaScript, CSS, and asset data-URIs into a single, self-contained `index.html` file that opens immediately by double-clicking under `file://` with zero CORS failures or local server requirements.
 
-### 4. Accessibility & Performance Engineering (WCAG 2.1 AA)
+### 7. Accessibility & Performance Engineering (WCAG 2.1 AA)
 * **Screen Reader Parity:** Animated kinetic text components expose full semantic text to assistive technology via `.sr-only` siblings, while animated character and word spans are flagged `aria-hidden` to eliminate choppy speech synthesis.
 * **Accessible Roving Tab Navigation:** The RTX 50 hardware selector implements strict WAI-ARIA tab semantics with roving `tabindex` and arrow-key keyboard navigation.
 * **Inert Modals & Focus Traps:** The responsive navigation drawer utilizes an `aria-modal` dialog that traps tab focus and returns focus deterministically to its trigger upon dismissal.
@@ -44,6 +59,7 @@ The repository features an intentional dual-target build system configured in `v
 ├── vite.config.ts            # ESM production configuration (code-split, relative base)
 ├── vite.single.config.ts     # Standalone bundle configuration (IIFE format)
 ├── scripts/
+│   ├── capture_sections.mjs  # Automated Puppeteer viewport & audit capture
 │   └── make-single.mjs       # Custom post-build inliner for standalone artifact
 ├── .github/workflows/
 │   └── deploy.yml            # Automated GitHub Actions Pages deployment pipeline
@@ -52,13 +68,15 @@ The repository features an intentional dual-target build system configured in `v
 │   ├── main.tsx              # React 19 bootstrap & ErrorBoundary wrapper
 │   ├── styles.css            # Tailwind CSS v4 design tokens & custom keyframes
 │   ├── lib/
+│   │   ├── audio.ts          # Native Web Audio API procedural sound engine
 │   │   ├── data.ts           # Spec sheets, DLSS presets, and engineering metadata
 │   │   ├── hooks.ts          # Media queries, IntersectionObserver, and scroll hooks
 │   │   └── motion.ts         # Shared Framer Motion springs and stagger variants
 │   └── components/
+│       ├── BenchmarkLab.tsx  # Interactive CUDA & Tensor Workload telemetry suite
 │       ├── GpuField.tsx      # Raw GLSL WebGL canvas shader & lifecycle manager
-│       ├── Navbar.tsx        # Sticky glass navigation with roving active-section tracking
-│       ├── Hero.tsx          # Kinetic typography, stat tickers, and primary CTAs
+│       ├── Navbar.tsx        # Sticky glass navigation with SFX toggle and mobile drawer
+│       ├── Hero.tsx          # Kinetic typography, stat tickers, and mobile HUD
 │       ├── Dlss.tsx          # Interactive neural rendering & frame-gen simulator
 │       ├── Rtx.tsx           # RTX 50 series architecture selector & procedural die art
 │       ├── Ceo.tsx           # Concept Architecture & Lead Engineer showcase

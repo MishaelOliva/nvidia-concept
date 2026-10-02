@@ -142,7 +142,7 @@ export function Dlss() {
                     value={t}
                     onChange={(e) => setT(Number(e.target.value))}
                     aria-valuetext={preset.name}
-                    className="absolute inset-x-0 top-1/2 h-8 w-full -translate-y-1/2 cursor-grab appearance-none bg-transparent active:cursor-grabbing [&::-moz-range-thumb]:size-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-nv-300 [&::-moz-range-thumb]:shadow-[0_0_18px_var(--color-nv-400)] [&::-webkit-slider-thumb]:size-6 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-nv-300 [&::-webkit-slider-thumb]:shadow-[0_0_18px_var(--color-nv-400)]"
+                    className="absolute inset-x-0 top-1/2 h-8 w-full -translate-y-1/2 cursor-grab appearance-none bg-transparent active:cursor-grabbing touch-pan-x [&::-moz-range-thumb]:size-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-nv-300 [&::-moz-range-thumb]:shadow-[0_0_18px_var(--color-nv-400)] [&::-webkit-slider-thumb]:size-6 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-nv-300 [&::-webkit-slider-thumb]:shadow-[0_0_18px_var(--color-nv-400)]"
                   />
                 </div>
 

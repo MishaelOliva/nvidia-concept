@@ -6,6 +6,7 @@ import { EXPO, SPRING } from '@/lib/motion'
 import { Counter, Reveal } from './ui/Reveal'
 import { MagneticButton, Tilt } from './ui/Interactive'
 import { SectionHeading } from './ui/Primitives'
+import { playClickSound, playHoverSound } from '@/lib/audio'
 
 export function Rtx() {
   const [sel, setSel] = useState(0)
@@ -57,7 +58,11 @@ export function Rtx() {
                   aria-selected={i === sel}
                   aria-controls="gpu-panel"
                   tabIndex={i === sel ? 0 : -1}
-                  onClick={() => setSel(i)}
+                  onClick={() => {
+                    playClickSound()
+                    setSel(i)
+                  }}
+                  onMouseEnter={() => playHoverSound()}
                   className={`relative rounded-xl px-5 py-3 text-left transition-colors duration-300 ${
                     i === sel ? 'text-ink-950' : 'text-mist-300 hover:text-mist-100'
                   }`}
@@ -337,10 +342,11 @@ function DieArt({ gpu }: { gpu: Gpu }) {
           x="160"
           y="128"
           textAnchor="middle"
-          fill="#6b7671"
+          fill="#bbf7d0"
           fontSize="8"
           fontFamily="monospace"
           letterSpacing="1.6"
+          opacity="0.9"
         >
           GB20{cols - 4} · {gpu.memoryType} · {gpu.vramGB}GB
         </text>

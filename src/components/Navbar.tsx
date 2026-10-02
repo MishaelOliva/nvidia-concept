@@ -1,25 +1,28 @@
 import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react'
-import { ChevronDown, Menu, Search, X } from 'lucide-react'
+import { ChevronDown, Menu, Search, Volume2, VolumeX, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { NAV } from '@/lib/data'
 import { EXPO, SPRING } from '@/lib/motion'
 import { useActiveSection, useScrollLock, useSmoothScroll } from '@/lib/hooks'
+import { isAudioEnabled, toggleAudio, playActivateSound } from '@/lib/audio'
 import { MagneticButton } from './ui/Interactive'
 import { NvidiaLogo } from './ui/Primitives'
 
 /* Document order — must match the order sections are composed in App.tsx,
    otherwise the side rail labels jump around as you scroll. */
-const SECTION_IDS = ['hero', 'pillars', 'architect', 'rtx', 'dlss', 'ai-factory', 'timeline', 'news']
+const SECTION_IDS = ['hero', 'pillars', 'architect', 'rtx', 'dlss', 'benchmark-lab', 'ai-factory', 'timeline', 'news']
 
 const ANCHORS = [
   { label: 'Body of Work', href: '#pillars' },
-  { label: 'GeForce RTX', href: '#rtx' },
-  { label: 'AI Factory', href: '#ai-factory' },
   { label: 'Concept Architect', href: '#architect' },
+  { label: 'GeForce RTX', href: '#rtx' },
+  { label: 'Compute Lab', href: '#benchmark-lab' },
+  { label: 'AI Factory', href: '#ai-factory' },
 ]
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const [soundOn, setSoundOn] = useState(() => isAudioEnabled())
   const [openGroup, setOpenGroup] = useState<string | null>(null)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [mobileGroup, setMobileGroup] = useState<string | null>(null)
@@ -249,7 +252,25 @@ export function Navbar() {
             </nav>
 
             {/* ------------------------------------------------- desktop acts */}
-            <div className="hidden items-center gap-2 lg:flex">
+            <div className="hidden items-center gap-2.5 lg:flex">
+              <button
+                type="button"
+                onClick={() => {
+                  const next = toggleAudio()
+                  setSoundOn(next)
+                  if (next) playActivateSound()
+                }}
+                aria-label={soundOn ? 'Disable sound FX' : 'Enable procedural audio'}
+                className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[11px] transition-all ${
+                  soundOn
+                    ? 'border border-nv-400/40 bg-nv-400/15 text-nv-300 shadow-[0_0_12px_rgba(118,185,0,0.3)]'
+                    : 'border border-white/5 bg-ink-900/60 text-mist-400 hover:text-mist-200'
+                }`}
+              >
+                {soundOn ? <Volume2 className="size-3.5 text-nv-400" /> : <VolumeX className="size-3.5" />}
+                <span className="tracking-wider uppercase">{soundOn ? 'SFX ON' : 'SFX'}</span>
+              </button>
+
               <button
                 type="button"
                 aria-label="Search"
@@ -262,17 +283,37 @@ export function Navbar() {
               </MagneticButton>
             </div>
 
-            {/* ---------------------------------------------- mobile trigger */}
-            <button
-              ref={mobileTriggerRef}
-              type="button"
-              onClick={() => setMobileOpen((v) => !v)}
-              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={mobileOpen}
-              className="grid size-10 place-items-center rounded-full text-mist-100 transition-colors hover:bg-nv-400/10 lg:hidden"
-            >
-              {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
-            </button>
+            {/* ---------------------------------------------- mobile controls */}
+            <div className="flex items-center gap-2 lg:hidden">
+              <button
+                type="button"
+                onClick={() => {
+                  const next = toggleAudio()
+                  setSoundOn(next)
+                  if (next) playActivateSound()
+                }}
+                aria-label={soundOn ? 'Disable sound FX' : 'Enable procedural audio'}
+                className={`flex items-center gap-1 rounded-full px-2.5 py-1 font-mono text-[10px] transition-all ${
+                  soundOn
+                    ? 'border border-nv-400/40 bg-nv-400/15 text-nv-300 shadow-[0_0_10px_rgba(118,185,0,0.3)]'
+                    : 'border border-white/10 bg-ink-900/60 text-mist-400'
+                }`}
+              >
+                {soundOn ? <Volume2 className="size-3 text-nv-400" /> : <VolumeX className="size-3" />}
+                <span className="uppercase">{soundOn ? 'SFX ON' : 'SFX OFF'}</span>
+              </button>
+
+              <button
+                ref={mobileTriggerRef}
+                type="button"
+                onClick={() => setMobileOpen((v) => !v)}
+                aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={mobileOpen}
+                className="grid size-10 place-items-center rounded-full text-mist-100 transition-colors hover:bg-nv-400/10"
+              >
+                {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+              </button>
+            </div>
 
             {/* reading-progress rail */}
             <motion.div
@@ -294,11 +335,11 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.25 }}
             role="dialog"
             aria-modal="true"
             aria-label="Site menu"
-            className="fixed inset-0 z-[70] bg-ink-950/95 backdrop-blur-2xl lg:hidden"
+            className="fixed inset-0 z-[70] bg-ink-950/98 backdrop-blur-md lg:hidden"
           >
             <div className="container-x flex h-full flex-col overflow-y-auto pt-28 pb-10">
               <nav className="space-y-1" aria-label="Mobile">
@@ -399,7 +440,7 @@ export function Navbar() {
       {/* Section rail. Not aria-hidden: it holds real, focusable controls. */}
       <nav
         aria-label="Page sections"
-        className="fixed top-1/2 right-6 z-[60] hidden -translate-y-1/2 flex-col items-end gap-3 xl:flex"
+        className="fixed top-1/2 right-6 z-[60] hidden -translate-y-1/2 flex-col items-end gap-3 2xl:flex"
       >
         {SECTION_IDS.filter((id) => id !== 'hero').map((id) => (
           <button
@@ -422,7 +463,7 @@ export function Navbar() {
               className={`block h-px transition-all duration-400 ${
                 active === id
                   ? 'w-8 bg-nv-400 shadow-[0_0_10px_var(--color-nv-400)]'
-                  : 'w-4 bg-nist-400/40 group-hover:w-6 group-hover:bg-nv-600'
+                  : 'w-4 bg-mist-400/40 group-hover:w-6 group-hover:bg-nv-600'
               }`}
             />
           </button>

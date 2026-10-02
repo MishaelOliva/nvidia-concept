@@ -7,6 +7,7 @@ import { usePrefersReducedMotion } from '@/lib/hooks'
 import { Reveal } from './ui/Reveal'
 import { Eyebrow } from './ui/Primitives'
 import { MagneticButton } from './ui/Interactive'
+import { playClickSound } from '@/lib/audio'
 import ceoPortrait from '../../assets/ceo-portrait-900.jpg'
 
 /* ============================================================================
@@ -63,6 +64,7 @@ export function CEO() {
   }
 
   const step = (n: number) => {
+    playClickSound()
     setDir(n)
     setQuote((q) => (q + n + CEO_DATA.highlights.length) % CEO_DATA.highlights.length)
   }
@@ -111,9 +113,8 @@ export function CEO() {
             my.set(0)
           }}
         >
-          {/* On mobile the portrait stacks first, so the eyebrow leads it.
-              Extra top padding clears the fixed header. */}
-          <div className="container-x pt-28 lg:hidden">
+          {/* On mobile the portrait stacks first, so the eyebrow leads it. */}
+          <div className="container-x pt-12 sm:pt-16 lg:hidden">
             <Eyebrow>Concept Architecture</Eyebrow>
           </div>
 
@@ -164,7 +165,7 @@ export function CEO() {
                 loading="lazy"
                 decoding="async"
                 draggable={false}
-                className="mask-dissolve h-full w-full object-cover object-center select-none"
+                className="mask-dissolve h-full w-full object-cover object-center select-none contrast-[1.08] saturate-[0.8] brightness-[0.94]"
               />
 
               {/* green duotone grade */}
@@ -173,7 +174,7 @@ export function CEO() {
                 className="pointer-events-none absolute inset-0 mix-blend-color"
                 style={{
                   background:
-                    'linear-gradient(160deg, rgba(118,185,0,0.34), rgba(74,125,0,0.14) 55%, rgba(118,185,0,0.26))',
+                    'linear-gradient(160deg, rgba(118,185,0,0.42), rgba(74,125,0,0.2) 55%, rgba(118,185,0,0.36))',
                 }}
               />
 
@@ -220,7 +221,7 @@ export function CEO() {
         </div>
 
         {/* ============================== column 2: biography & pillars */}
-        <div className="container-x lg:flex lg:items-center lg:max-w-none lg:pt-0 lg:pb-0 lg:pl-12 lg:pr-16">
+        <div className="container-x lg:flex lg:items-center lg:max-w-none lg:pt-0 lg:pb-0 lg:pl-12 lg:pr-24 xl:pr-32">
           {/* Was -mt-10, which pulled the biography 40px up on mobile and
               overlapped the "Mishael Oliva" heading with the portrait. */}
           <div className="mt-8 w-full pb-20 lg:mt-0 lg:pb-0">

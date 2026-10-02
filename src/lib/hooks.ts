@@ -30,10 +30,15 @@ export function useScrollProgressVar(varName = '--scroll-progress') {
   useEffect(() => {
     const root = document.documentElement
     let raf = 0
+    let max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
+
+    const updateMax = () => {
+      max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
+    }
+
     const update = () => {
       raf = 0
-      const max = document.body.scrollHeight - window.innerHeight
-      const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0
+      const p = Math.min(1, Math.max(0, window.scrollY / max))
       root.style.setProperty(varName, String(p))
     }
     const onScroll = () => {
@@ -41,11 +46,14 @@ export function useScrollProgressVar(varName = '--scroll-progress') {
     }
     update()
     window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
+    window.addEventListener('resize', () => {
+      updateMax()
+      onScroll()
+    }, { passive: true })
     return () => {
       if (raf) cancelAnimationFrame(raf)
       window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
+      window.removeEventListener('resize', updateMax)
     }
   }, [varName])
 }

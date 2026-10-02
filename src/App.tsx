@@ -6,6 +6,7 @@ import { Ticker } from './components/Ticker'
 import { Pillars } from './components/Pillars'
 import { Rtx } from './components/Rtx'
 import { Dlss } from './components/Dlss'
+import { BenchmarkLab } from './components/BenchmarkLab'
 import { AiFactory } from './components/AiFactory'
 import { CEO } from './components/Ceo'
 import { Timeline } from './components/Timeline'
@@ -51,6 +52,7 @@ export default function App() {
           <CEO />
           <Rtx />
           <Dlss />
+          <BenchmarkLab />
           <AiFactory />
           <Timeline />
           <Newsroom />
@@ -60,10 +62,10 @@ export default function App() {
         <Footer />
       </div>
 
-      {/* page-wide film grain */}
+      {/* page-wide film grain with hardware-accelerated zero-repaint layer */}
       <div
         aria-hidden
-        className="bg-noise pointer-events-none fixed inset-0 z-[95] opacity-[0.035] mix-blend-overlay"
+        className="bg-noise pointer-events-none fixed inset-0 z-[95] opacity-[0.025] [transform:translateZ(0)]"
       />
     </>
   )

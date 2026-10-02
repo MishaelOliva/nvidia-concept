@@ -89,6 +89,13 @@ export function Hero() {
           </Reveal>
         </div>
 
+        {/* --------------------------------- mobile & tablet telemetry rail */}
+        <div className="mt-8 lg:hidden">
+          <div className="glass rounded-2xl p-4 sm:p-5">
+            <StatRail mobile />
+          </div>
+        </div>
+
         {/* --------------------------------------------------- floating HUD */}
         <div className="pointer-events-none mt-10 hidden lg:block">
           <motion.div
@@ -141,29 +148,35 @@ export function Hero() {
 /* -------------------------------------------------------------------------- */
 /*  Stat rail — four animated readouts                                         */
 /* -------------------------------------------------------------------------- */
-function StatRail() {
+function StatRail({ mobile = false }: { mobile?: boolean }) {
   return (
-    <dl className="grid grid-cols-2 gap-x-10 gap-y-7 xl:grid-cols-4">
+    <dl
+      className={
+        mobile
+          ? 'grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-4 sm:gap-x-6'
+          : 'grid grid-cols-2 gap-x-10 gap-y-7 xl:grid-cols-4'
+      }
+    >
       {HERO_STATS.map((s, i) => (
         <motion.div
           key={s.label}
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: mobile ? 10 : 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ ...EXPO, delay: 0.9 + i * 0.09 }}
+          transition={{ ...EXPO, delay: (mobile ? 0.35 : 0.9) + i * 0.08 }}
           className="group relative"
         >
-          <dt className="mb-1.5 flex items-center gap-1.5 font-mono text-[10px] tracking-[0.18em] text-mist-400 uppercase">
-            {i === 0 && <Zap className="size-3 text-nv-400" />}
-            {i === 1 && <Zap className="size-3 text-nv-400" />}
-            {i === 2 && <Cpu className="size-3 text-nv-400" />}
-            {i === 3 && <Sparkles className="size-3 text-nv-400" />}
+          <dt className="mb-1 flex items-center gap-1 font-mono text-[9px] tracking-[0.16em] text-mist-400 uppercase sm:text-[10px]">
+            {i === 0 && <Zap className="size-2.5 text-nv-400 sm:size-3" />}
+            {i === 1 && <Zap className="size-2.5 text-nv-400 sm:size-3" />}
+            {i === 2 && <Cpu className="size-2.5 text-nv-400 sm:size-3" />}
+            {i === 3 && <Sparkles className="size-2.5 text-nv-400 sm:size-3" />}
             {s.label}
           </dt>
-          <dd className="tnum font-display text-[1.7rem] leading-none font-bold text-mist-100 xl:text-[2rem]">
+          <dd className="tnum font-display text-xl leading-none font-bold text-mist-100 sm:text-2xl xl:text-[2rem]">
             <Counter value={s.value} duration={2200 + i * 220} />
             <span className="text-nv-400">{s.suffix}</span>
           </dd>
-          <span className="mt-2 block h-px w-full origin-left scale-x-0 bg-gradient-to-r from-nv-400 to-transparent transition-transform duration-500 group-hover:scale-x-100" />
+          <span className="mt-1.5 block h-px w-full origin-left scale-x-0 bg-gradient-to-r from-nv-400 to-transparent transition-transform duration-500 group-hover:scale-x-100" />
         </motion.div>
       ))}
     </dl>
