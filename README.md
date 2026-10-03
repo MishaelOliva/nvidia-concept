@@ -126,4 +126,5 @@ npm run preview
 
 ---
 
-*Notice: This project is an independent frontend engineering and graphics concept build designed to showcase modern web systems, custom WebGL shaders, and React 19 architecture.*
+> [!NOTE]
+> **Disclaimer**: This project is strictly an independent, unofficial fan concept built for portfolio and demonstration purposes. NVIDIA, GeForce, RTX, and DLSS are registered trademarks of NVIDIA Corporation. This project is not affiliated with, endorsed by, or sponsored by NVIDIA Corporation.
