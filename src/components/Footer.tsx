@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { NAV, TIMELINE } from '@/lib/data'
 import { EXPO } from '@/lib/motion'
 import { useSmoothScroll } from '@/lib/hooks'
-import { NvidiaLogo } from './ui/Primitives'
+import { Wordmark } from './ui/Primitives'
 import { Reveal } from './ui/Reveal'
 
 const SOCIALS = [
@@ -181,9 +181,8 @@ export function Footer() {
         {/* ------------------------------------------------------- bottom bar */}
         <div className="flex flex-col items-center gap-6 border-t border-nv-400/12 py-8 md:flex-row md:justify-between">
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[0.8rem] text-mist-400 md:justify-start">
-            <NvidiaLogo className="text-[0.95rem] text-mist-300" />
-            <span>© {new Date().getFullYear()} NVIDIA Corporation</span>
-            <span className="text-mist-400">A fan-made concept build.</span>
+            <Wordmark className="text-[0.95rem] text-mist-300" />
+            <span>Concept build by Mishael Oliva</span>
           </div>
 
           <div className="flex items-center gap-2">
@@ -209,6 +208,15 @@ export function Footer() {
             </button>
           </div>
         </div>
+
+        {/* ----------------------------------------------------- disclaimer */}
+        <p
+          data-testid="trademark-disclaimer"
+          className="border-t border-nv-400/12 py-6 text-center text-[0.78rem] leading-relaxed text-mist-400 md:text-left"
+        >
+          Unofficial fan concept for portfolio purposes. NVIDIA, GeForce, RTX and DLSS are
+          trademarks of NVIDIA Corporation. Not affiliated with or endorsed by NVIDIA.
+        </p>
       </div>
 
       {/* faint "since 1993" echo */}

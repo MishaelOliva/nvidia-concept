@@ -6,7 +6,7 @@ import { EXPO, SPRING } from '@/lib/motion'
 import { useActiveSection, useScrollLock, useSmoothScroll } from '@/lib/hooks'
 import { isAudioEnabled, toggleAudio, playActivateSound } from '@/lib/audio'
 import { MagneticButton } from './ui/Interactive'
-import { NvidiaLogo } from './ui/Primitives'
+import { Wordmark } from './ui/Primitives'
 
 /* Document order — must match the order sections are composed in App.tsx,
    otherwise the side rail labels jump around as you scroll. */
@@ -163,9 +163,9 @@ export function Navbar() {
                 go('#hero')
               }}
               className="shrink-0 pl-2 text-[1.35rem] text-mist-100 transition-colors hover:text-nv-300"
-              aria-label="NVIDIA home"
+              aria-label="NVIDIA concept home"
             >
-              <NvidiaLogo />
+              <Wordmark />
             </a>
 
             {/* ------------------------------------------------- desktop nav */}

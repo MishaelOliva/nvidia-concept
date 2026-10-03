@@ -68,27 +68,18 @@ export function SectionHeading({
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Logo — the NVIDIA wordmark, drawn rather than hot-linked so it themes     */
+/*  Wordmark — neutral, text-only site mark styled in CSS.                    */
+/*  Deliberately NOT a reproduction of the official NVIDIA logo: this is an   */
+/*  unofficial fan concept, so no trademarked artwork is bundled.             */
 /* -------------------------------------------------------------------------- */
-export function NvidiaLogo({
-  className = '',
-  showEye = true,
-}: {
-  className?: string
-  showEye?: boolean
-}) {
+export function Wordmark({ className = '' }: { className?: string }) {
   return (
-    <span className={`inline-flex items-center gap-1 ${className}`}>
-      {/* the "eye" — a rotated square, echoing the real mark */}
-      {showEye && (
-        <svg viewBox="0 0 24 24" className="size-[1.05em] shrink-0" aria-hidden>
-          <g fill="currentColor">
-            <path d="M12 3.6c3.3 0 6.3 1.4 8.5 3.7A20.6 20.6 0 0 1 12 20.4 20.6 20.6 0 0 1 3.5 7.3C5.7 5 8.7 3.6 12 3.6Zm0 4.3a4.1 4.1 0 1 0 0 8.2 4.1 4.1 0 0 0 0-8.2Z" />
-          </g>
-        </svg>
-      )}
+    <span className={`inline-flex items-baseline gap-1.5 ${className}`}>
       <span className="font-display text-[1.05em] leading-none font-extrabold tracking-[0.02em]">
         NVIDIA
+      </span>
+      <span className="font-mono text-[0.5em] leading-none font-medium tracking-[0.2em] text-nv-400 uppercase">
+        Concept
       </span>
     </span>
   )
